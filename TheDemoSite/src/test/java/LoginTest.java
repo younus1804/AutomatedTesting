@@ -27,7 +27,7 @@ public class LoginTest {
     public static void init() {
         System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe");
         ChromeOptions cOptions = new ChromeOptions();
-        cOptions.setHeadless(true);
+        cOptions.setHeadless(false);
         driver = new ChromeDriver(cOptions);
         cOptions.setExperimentalOption("profile.default_content_setting_values.cookies", 2); 
     	cOptions.setExperimentalOption("network.cookie.cookieBehavior", 2); 
@@ -48,19 +48,23 @@ public class LoginTest {
  	}
     
     @Test
-   	public void addAUserTest() throws Exception {
-    	
+   	public void addAUserTest() {
     	driver.get(URL + "/addauser.php");
     	WebElement input = driver.findElement(By.name("username"));
     	input.sendKeys("guest");
-		input.submit();
     	WebElement input1 = driver.findElement(By.name("password"));
 		input1.sendKeys("guest");
 		input1.submit();
+    	driver.get(URL + "/login.php");
+    	WebElement input2 = driver.findElement(By.name("username"));
+    	input2.sendKeys("guest");
+    	WebElement input3 = driver.findElement(By.name("password"));
+		input3.sendKeys("guest");
+		input3.submit();
     }
     
     @AfterClass
-  	public static void tearDown() {
-  		driver.quit();
-  	}
+   	public static void tearDown() {
+   		driver.quit();
+}
 }
